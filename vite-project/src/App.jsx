@@ -16,12 +16,12 @@ function App() {
     <>
     <Navbar />
       <Hero />
-      <CareerScale />
       <About />
       <Skills />
       <SkillsRadar />
       <Projects />
       <Education />
+      <CareerScale />
       <Contact />
     </>
   )
