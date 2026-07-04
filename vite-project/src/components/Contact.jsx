@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from "react";
-import "./Contact.css";
+import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
 
 const Contact = () => {
   const sectionRef = useRef(null);
@@ -11,6 +12,12 @@ const Contact = () => {
   const formCardRef = useRef(null);
   const titansRef = useRef([]);
   const scoutsRef = useRef([]);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [submitState, setSubmitState] = useState("idle");
 
   const titanAssets = [
     { src: "/images/col.png", alt: "Titan figure", top: "14%", width: "340px" },
@@ -35,7 +42,6 @@ const Contact = () => {
   useEffect(() => {
     const ctx = gsap.context(() => {
       
-      // 1. Title Entrance Animation
       gsap.from(headerRef.current, {
         opacity: 0,
         y: -40,
@@ -47,7 +53,6 @@ const Contact = () => {
         }
       });
 
-      // 2. Central Log Parchment Form Zoom Up Animation
       gsap.from(formCardRef.current, {
         opacity: 0,
         y: 120,
@@ -60,7 +65,6 @@ const Contact = () => {
         }
       });
 
-      // 3. Dynamic Linked Parallax Scrolling for Titans Faction (Moves upward fast on scroll)
       titansRef.current.forEach((element, index) => {
         if (!element) return;
         gsap.fromTo(element,
@@ -78,7 +82,6 @@ const Contact = () => {
         );
       });
 
-      // 4. Dynamic Linked Parallax Scrolling for Survey Corps Units (Slides in horizontally & vertically)
       scoutsRef.current.forEach((element, index) => {
         if (!element) return;
         gsap.fromTo(element,
@@ -102,10 +105,29 @@ const Contact = () => {
     return () => ctx.revert();
   }, []);
 
-  const handleDispatchSubmit = (e) => {
+  const handleDispatchSubmit = async (e) => {
     e.preventDefault();
-    // Connect your cloud message endpoints or backend api execution logs here
-    alert("Message logged. Signal flare dispatched to the Survey Headquarters!");
+
+    setSubmitState("sending");
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/contact`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Request failed with status ${response.status}`);
+      }
+
+      setSubmitState("success");
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      setSubmitState("error");
+    }
   };
 
   return (
@@ -158,7 +180,6 @@ const Contact = () => {
         {/* Central Communications Form Wrapper Frame */}
         <div className="form-wrapper" ref={formCardRef}>
           <form className="communication-log-card" onSubmit={handleDispatchSubmit}>
-            {/* Embedded watermark insignia element behind inputs */}
             <img src="/images/shiganshina-wall.png" className="form-watermark-crest" alt="" />
 
             <h3>COMMUNICATION LOG</h3>
@@ -170,6 +191,20 @@ const Contact = () => {
                 id="coder-name" 
                 placeholder="Lahiru Imesh" 
                 required 
+                value={formData.name}
+                onChange={(event) => setFormData((current) => ({ ...current, name: event.target.value }))}
+              />
+            </div>
+
+            <div className="input-field-group">
+              <label htmlFor="coder-email">Email</label>
+              <input 
+                type="email" 
+                id="coder-email" 
+                placeholder="lahiruimesh111@gmail.com" 
+                required 
+                value={formData.email}
+                onChange={(event) => setFormData((current) => ({ ...current, email: event.target.value }))}
               />
             </div>
 
@@ -189,12 +224,26 @@ const Contact = () => {
                 rows="5" 
                 placeholder="Project, internship, or collaboration details..." 
                 required
+                value={formData.message}
+                onChange={(event) => setFormData((current) => ({ ...current, message: event.target.value }))}
               ></textarea>
             </div>
 
             <button type="submit" className="btn-send-dispatch">
-              Send Dispatch
+              {submitState === "sending" ? "Sending..." : "Send Dispatch"}
             </button>
+
+            {submitState === "success" && (
+              <p className="mt-4 text-center text-[11px] uppercase tracking-[0.2em] text-green-700">
+                Message logged successfully.
+              </p>
+            )}
+
+            {submitState === "error" && (
+              <p className="mt-4 text-center text-[11px] uppercase tracking-[0.2em] text-red-700">
+                Failed to dispatch the message.
+              </p>
+            )}
           </form>
         </div>
 

@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from "react";
-import "./SkillsRadar.css";
 import gsap from "gsap";
 
 const SkillsRadar = () => {

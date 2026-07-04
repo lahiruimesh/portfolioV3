@@ -1,5 +1,3 @@
-
-import './App.css'
 import Hero from './components/Hero'
 import Navbar from './components/Navbar'
 import CareerScale from './components/CareerScale'

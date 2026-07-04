@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react'
-import './Navbar.css'
 
 const LINKS = [
   { label: 'Home',      href: '#home'      },
@@ -8,6 +7,8 @@ const LINKS = [
   { label: 'Projects',  href: '#projects'  },
   { label: 'Contact',   href: '#contact'   },
 ]
+
+const CV_DOWNLOAD_PATH = '/cv.pdf'
 
 const Navbar = () => {
   const [scrolled,    setScrolled]    = useState(false)
@@ -70,6 +71,16 @@ const Navbar = () => {
           <div className="navbar__indicator" ref={indicatorRef} />
         </ul>
 
+        <a href={CV_DOWNLOAD_PATH} download className="navbar__download">
+          <span className="navbar__download-inner">
+            <span>Download CV</span>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M7 2v7m0 0 3-3m-3 3L4 6M2 11h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </span>
+          <span className="navbar__download-bg" />
+        </a>
+
         <a href="#contact" className="navbar__cta">
           <span className="navbar__cta-inner">
             <span>Get In Touch</span>
@@ -106,6 +117,9 @@ const Navbar = () => {
               {link.label}
             </a>
           ))}
+          <a href={CV_DOWNLOAD_PATH} download className="navbar__drawer-download" onClick={() => setMenuOpen(false)}>
+            Download CV
+          </a>
           <a href="#contact" className="navbar__drawer-cta" onClick={() => setMenuOpen(false)}>
             Get In Touch
           </a>

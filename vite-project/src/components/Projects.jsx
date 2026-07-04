@@ -1,63 +1,138 @@
-import React, { useEffect, useRef } from "react";
-import "./Projects.css";
+import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
+
+const fallbackProjects = [
+  {
+    id: 1,
+    num: "01",
+    title: "Local RAG Platform for Academic Data",
+    description:
+      "Built an end-to-end RAG application with FastAPI, LangChain, and LLaMA 3 to query unstructured academic data.",
+    tech: ["Python", "FastAPI", "LangChain", "LLaMA 3", "Chroma DB", "Google Drive API"],
+    year: "2026",
+    crest: "/images/survey-logo.jpg",
+    art: "/images/shiganshina-wall.jpg",
+    github: "https://github.com/lahiruimesh",
+    status: "Completed",
+  },
+  {
+    id: 2,
+    num: "02",
+    title: "Stateful AI Travel Orchestrator",
+    description:
+      "Built an agentic AI travel system using LangGraph with memory, dynamic workflow routing, and real-time APIs.",
+    tech: ["Python", "LangGraph", "FastAPI", "Groq (Llama 3.1)", "n8n", "Next.js", "TypeScript"],
+    year: "2026",
+    crest: "/images/hero-wall.png",
+    art: "/images/hero-wall.png",
+    github: "https://github.com/lahiruimesh",
+    status: "Completed",
+  },
+  {
+    id: 3,
+    num: "03",
+    title: "Brain Tumor Classification System",
+    description:
+      "Developed an EfficientNetB3 deep learning model for MRI scan classification with an OpenCV preprocessing pipeline.",
+    tech: ["Python", "TensorFlow", "Keras", "EfficientNetB3", "OpenCV", "Scikit-learn", "NumPy"],
+    year: "2026",
+    crest: "/images/ArmoredTitan.png",
+    art: "/images/ArmoredTitan.png",
+    github: "https://github.com/lahiruimesh",
+    status: "Completed",
+  },
+  {
+    id: 4,
+    num: "04",
+    title: "Healthcare Risk Prediction Platform",
+    description:
+      "Built a machine learning web application to predict heart disease, diabetes, and high cholesterol risk with Streamlit dashboards.",
+    tech: ["Python", "Streamlit", "XGBoost", "Scikit-learn", "Pandas", "NumPy", "Matplotlib", "Seaborn"],
+    year: "2026",
+    crest: "/images/BeastTitan.png",
+    art: "/images/BeastTitan.png",
+    github: "https://github.com/lahiruimesh",
+    status: "Completed",
+  },
+  {
+    id: 5,
+    num: "05",
+    title: "Sellaro Customizable E-Commerce Web Template System",
+    description:
+      "Built a multi-tenant e-commerce platform for SMEs with secure Stripe integration, product management, and customizable UI templates.",
+    tech: ["Next.js", "NestJS", "MongoDB", "Stripe", "Cloudinary", "JWT", "Figma"],
+    year: "2024-25",
+    crest: "/images/col.png",
+    art: "/images/col.png",
+    github: "https://github.com/lahiruimesh",
+    status: "Completed",
+  },
+];
+
+const normalizeProject = (project, index) => ({
+  id: project.id ?? index,
+  num: project.num ?? String(index + 1).padStart(2, "0"),
+  title: project.title ?? "Untitled Project",
+  description: project.description ?? "",
+  tech: Array.isArray(project.tech) ? project.tech : [],
+  year: project.year ?? "",
+  crest: project.crest ?? "/images/survey-logo.jpg",
+  art: project.art ?? `/images/project-art-${project.num ?? String(index + 1).padStart(2, "0")}.jpg`,
+  github: project.github ?? "#",
+  status: project.status ?? "Completed",
+});
+
 const Projects = () => {
   const sectionRef = useRef(null);
   const headerRef = useRef(null);
-  const cardsRef = useRef([]);
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState("");
 
-  // Mock project data array structure matching the graphic completely
-  const projectsData = [
-    {
-      num: "01",
-      title: "Local RAG Platform for Academic Data",
-      description: "Built an end-to-end RAG application with FastAPI, LangChain, and LLaMA 3 to query unstructured academic data.",
-      tech: ["Python", "FastAPI", "LangChain", "LLaMA 3", "Chroma DB", "Google Drive API"],
-      year: "2026",
-      crest: "/images/survey-logo.jpg",
-      github: "https://github.com/lahiruimesh"
-    },
-    {
-      num: "02",
-      title: "Stateful AI Travel Orchestrator",
-      description: "Built an agentic AI travel system using LangGraph with memory, dynamic workflow routing, and real-time APIs.",
-      tech: ["Python", "LangGraph", "FastAPI", "Groq (Llama 3.1)", "n8n", "Next.js", "TypeScript"],
-      year: "2026",
-      crest: "/images/hero-wall.png",
-      github: "https://github.com/lahiruimesh"
-    },
-    {
-      num: "03",
-      title: "Brain Tumor Classification System",
-      description: "Developed an EfficientNetB3 deep learning model for MRI scan classification with an OpenCV preprocessing pipeline.",
-      tech: ["Python", "TensorFlow", "Keras", "EfficientNetB3", "OpenCV", "Scikit-learn", "NumPy"],
-      year: "2026",
-      crest: "/images/ArmoredTitan.png",
-      github: "https://github.com/lahiruimesh"
-    },
-    {
-      num: "04",
-      title: "Healthcare Risk Prediction Platform",
-      description: "Built a machine learning web application to predict heart disease, diabetes, and high cholesterol risk with Streamlit dashboards.",
-      tech: ["Python", "Streamlit", "XGBoost", "Scikit-learn", "Pandas", "NumPy", "Matplotlib", "Seaborn"],
-      year: "2026",
-      crest: "/images/BeastTitan.png",
-      github: "https://github.com/lahiruimesh"
-    },
-    {
-      num: "05",
-      title: "Sellaro Customizable E-Commerce Web Template System",
-      description: "Built a multi-tenant e-commerce platform for SMEs with secure Stripe integration, product management, and customizable UI templates.",
-      tech: ["Next.js", "NestJS", "MongoDB", "Stripe", "Cloudinary", "JWT", "Figma"],
-      year: "2024-25",
-      crest: "/images/col.png",
-      github: "https://github.com/lahiruimesh"
-    }
-  ];
+  useEffect(() => {
+    const controller = new AbortController();
+
+    const fetchProjects = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/projects`, {
+          signal: controller.signal,
+        });
+
+        if (!response.ok) {
+          throw new Error(`Request failed with status ${response.status}`);
+        }
+
+        const data = await response.json();
+        const normalizedProjects = Array.isArray(data) ? data.map(normalizeProject) : [];
+
+        if (normalizedProjects.length > 0) {
+          setProjects(normalizedProjects);
+          setLoadError("");
+        } else {
+          setProjects(fallbackProjects);
+          setLoadError("Backend returned no projects, so the local portfolio data is shown instead.");
+        }
+      } catch (error) {
+        if (error.name === "AbortError") {
+          return;
+        }
+
+        setProjects(fallbackProjects);
+        setLoadError("FastAPI is not reachable yet, so the local portfolio data is shown instead.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProjects();
+
+    return () => controller.abort();
+  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -74,8 +149,9 @@ const Projects = () => {
       });
 
       // Staggered cascade entrance animation for individual layout cards
-      if (cardsRef.current.length > 0) {
-        gsap.from(cardsRef.current, {
+      const projectCards = sectionRef.current?.querySelectorAll(".project-card");
+      if (projectCards && projectCards.length > 0) {
+        gsap.from(projectCards, {
           opacity: 0,
           y: 100,
           stagger: 0.25,
@@ -90,7 +166,7 @@ const Projects = () => {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [projects.length]);
 
   return (
     <section className="projects-section" ref={sectionRef} id="projects">
@@ -110,13 +186,18 @@ const Projects = () => {
           <p>Missions Undertaken. Systems Built. Impact Delivered.</p>
         </div>
 
+        {(loading || loadError) && (
+          <div className="projects-status-banner" role="status" aria-live="polite">
+            {loading ? "Loading project missions from FastAPI..." : loadError}
+          </div>
+        )}
+
         {/* Dynamic Project Loop Framework Row Grid Container */}
         <div className="projects-list">
-          {projectsData.map((project, index) => (
+          {projects.map((project) => (
             <div 
-              key={index} 
+              key={project.id} 
               className="project-card"
-              ref={(el) => (cardsRef.current[index] = el)}
             >
               {/* Column 01: Numerical Badge Identification */}
               <div className="proj-num-col">
@@ -127,7 +208,7 @@ const Projects = () => {
               {/* Column 02: Tactical Blueprint Artwork Document Segment */}
               <div className="proj-art-col">
                 {/* Dynamically fallback gracefully to styled generic canvas blueprint items if art files are missing */}
-                <img src={`/images/project-art-${project.num}.jpg`} alt="" onError={(e) => {
+                <img src={project.art} alt="" onError={(e) => {
                   e.target.style.display = 'none';
                 }}/>
                 <div className="frame-overlay" style={{background: 'radial-gradient(circle, transparent 30%, rgba(0,0,0,0.4) 100%)'}}></div>
@@ -136,7 +217,7 @@ const Projects = () => {
               {/* Column 03: Text Payload & Tech Stack Data Assembly Row */}
               <div className="proj-info-col">
                 <div>
-                  <div className="proj-status">Mission Status: <span>Completed</span></div>
+                  <div className="proj-status">Mission Status: <span>{project.status}</span></div>
                   <h4>{project.title}</h4>
                   <p>{project.description}</p>
                 </div>
