@@ -106,7 +106,7 @@ const Hero = () => {
 
   return (
 
-    <section className="hero" ref={sectionRef}>
+    <section className="hero" ref={sectionRef} id="home">
       <div className="hero__sticky" ref={stickyRef}>
 
         <video
@@ -125,29 +125,29 @@ const Hero = () => {
         <div className="hero__chapter hero__ch1">
           <div className="hero__eyebrow">
             <span className="hero__rule" />
-            <span className="hero__eyebrow-txt">Year 845 · Wall Maria</span>
+            <span className="hero__eyebrow-txt">2022-Present · University of Moratuwa</span>
             <span className="hero__rule" />
           </div>
           <h1 className="hero__ch1-title" ref={ch1TitleRef}>
-            Beyond the <em>Walls</em><br />
-            <span>lies the truth</span>
+            Lahiru <em>Imesh</em><br />
+            <span>AI / ML Intern</span>
           </h1>
           <p className="hero__ch1-sub" ref={ch1SubRef}>
-            Humanity's last refuge — three walls, one consuming dread.
+            Aspiring AI/ML Engineer focused on machine learning, data preprocessing, feature engineering, model development, and AI deployment.
           </p>
         </div>
 
         <div className="hero__chapter hero__ch2">
-          <p className="hero__ch2-title" ref={ch2TitleRef}>SHINGEKI NO KYOJIN</p>
-          <p className="hero__ch2-sub"   ref={ch2SubRef}>— The day the wall was breached —</p>
+          <p className="hero__ch2-title" ref={ch2TitleRef}>PYTHON • FASTAPI • XGBOOST</p>
+          <p className="hero__ch2-sub"   ref={ch2SubRef}>— Full-stack AI systems, data-driven products, and practical problem solving —</p>
         </div>
 
         <div className="hero__chapter hero__ch3">
           <h2 className="hero__ch3-title" ref={ch3TitleRef}>
-            ATTACK<br /><span>ON TITAN</span>
+            BUILDING<br /><span>INTELLIGENT SYSTEMS</span>
           </h2>
           <p className="hero__ch3-sub" ref={ch3SubRef}>
-            Dedicate your heart. Pledge your life.
+            GitHub, LinkedIn, portfolio, and projects below.
           </p>
         </div>
 

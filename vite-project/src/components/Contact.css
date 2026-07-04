@@ -1,0 +1,318 @@
+/* =========================
+   BASE CONTACT SECTION
+========================= */
+.contact-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: #0b0b0b;
+  color: #ad4396;
+  overflow: hidden;
+  padding: 100px 40px;
+  font-family: "Inter", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Atmospheric smoky battlefield layer */
+.contact-bg-battlefield {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+      to top,
+      rgba(11, 11, 11, 0.95) 0%,
+      rgba(20, 10, 10, 0.75) 50%,
+      rgba(11, 11, 11, 0.9) 100%
+    ),
+    url("/images/shiganshina-wall.png"); /* Add a background wall/city image here */
+  background-size: cover;
+  background-position: center;
+  opacity: 0.25;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.contact-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+
+.contact-links-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0 auto 40px;
+  width: min(100%, 980px);
+}
+
+.contact-links-strip a {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 16px;
+  border: 1px solid rgba(216, 201, 163, 0.18);
+  background: rgba(11, 11, 11, 0.55);
+  color: #e7dcc7;
+  text-decoration: none;
+  backdrop-filter: blur(8px);
+}
+
+.contact-links-strip a span {
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #8b7355;
+}
+
+.contact-links-strip a strong {
+  font-size: 13px;
+  font-weight: 600;
+  word-break: break-word;
+}
+
+/* =========================
+   HEADER STYLING
+========================= */
+.contact-top {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.contact-top .badge {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.35em;
+  color: #8f1d1d;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.contact-top h2 {
+  font-family: "Cinzel", serif;
+  font-size: 56px;
+  letter-spacing: 0.2em;
+  color: #d8c9a3;
+  margin: 0;
+  text-shadow: 0 0 20px rgba(0, 0, 0, 0.9);
+}
+
+/* =========================
+   THE SCROLLABLE ILLUSTRATIONS
+========================= */
+/* Left: Titan Threat Threatening the wall */
+.titan-faction-left {
+  position: absolute;
+  left: -20px;
+  top: 15%;
+  width: 380px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.titan-faction-left img {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 20px 30px rgba(0,0,0,0.7)) contrast(1.1);
+}
+
+/* Right: Survey Corps Defense Garrison Units */
+.survey-corps-right {
+  position: absolute;
+  right: -30px;
+  bottom: 5%;
+  width: 420px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.survey-corps-right img {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 25px 35px rgba(0,0,0,0.8));
+}
+
+/* =========================
+   WEATHERED COMMUNICATION FORM
+========================= */
+.form-wrapper {
+  max-width: 540px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  z-index: 15;
+}
+
+/* Distressed Papyrus Texture Card */
+.communication-log-card {
+  background: url("/images/shiganshina-wall.png") #d8af6d; /* fallback texture color */
+  background-size: cover;
+  border: 1px solid rgba(160, 143, 143, 0.25);
+  box-shadow: 
+    0 30px 70px rgba(0, 0, 0, 0.85),
+    inset 0 0 40px rgba(0, 0, 0, 0.3);
+  padding: 50px 45px;
+  color: #1a1a1a; /* Dark text inside ancient document logs */
+  position: relative;
+  clip-path: polygon(
+    0% 3%, 3% 0%, 96% 1%, 100% 4%, 99% 95%, 
+    96% 99%, 4% 100%, 0% 96%
+  ); /* Creates rugged imperfect historic cut paper edges */
+}
+
+/* Watermark crest behind content inputs */
+.form-watermark-crest {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 260px;
+  opacity: 0.04;
+  pointer-events: none;
+}
+
+.communication-log-card h3 {
+  font-family: "Cinzel", serif;
+  font-size: 18px;
+  letter-spacing: 0.25em;
+  text-align: center;
+  color: #2b2b2b;
+  margin: 0 0 35px 0;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.15);
+  padding-bottom: 12px;
+}
+
+/* Form Controls Layout */
+.input-field-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 22px;
+}
+
+.input-field-group label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #3a3a3a;
+  margin-bottom: 8px;
+}
+
+.input-field-group input,
+.input-field-group textarea {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 14px 16px;
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  color: #111111;
+  transition: all 0.3s ease;
+}
+
+.input-field-group input:focus,
+.input-field-group textarea:focus {
+  outline: none;
+  background: rgba(0, 0, 0, 0.12);
+  border-color: #8f1d1d;
+  box-shadow: inset 0 1px 5px rgba(0,0,0,0.1);
+}
+
+/* Dispatch Crimson Button */
+.btn-send-dispatch {
+  width: 100%;
+  background: #7a1515;
+  color: #f5eedc;
+  border: 1px solid #5a0f0f;
+  font-family: "Cinzel", serif;
+  font-size: 13px;
+  letter-spacing: 0.25em;
+  padding: 16px;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-top: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.btn-send-dispatch:hover {
+  background: #961c1c;
+  box-shadow: 0 8px 20px rgba(143, 29, 29, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-send-dispatch:active {
+  transform: translateY(0);
+}
+
+/* =========================
+   BOTTOM JAPANESE MOTTO
+========================= */
+.contact-footer-signs {
+  text-align: center;
+  margin-top: 60px;
+}
+
+.contact-footer-signs .kanji-motto {
+  font-family: "Cinzel", serif;
+  font-size: 20px;
+  letter-spacing: 0.4em;
+  color: rgba(231, 220, 199, 0.3);
+  margin-bottom: 10px;
+}
+
+.contact-footer-signs .sub-motto {
+  font-size: 10px;
+  letter-spacing: 0.35em;
+  color: #8b7355;
+  text-transform: uppercase;
+}
+
+/* =========================
+   RESPONSIVE DESIGN ADAPTATION
+========================= */
+@media (max-width: 1200px) {
+  .titan-faction-left {
+    width: 260px;
+    left: -40px;
+  }
+  .survey-corps-right {
+    width: 300px;
+    right: -40px;
+  }
+}
+
+@media (max-width: 992px) {
+  /* On tablets/mid size viewports, dim illustration side assets behind the papyrus card to retain text clarity */
+  .titan-faction-left,
+  .survey-corps-right {
+    opacity: 0.2;
+    z-index: 2;
+  }
+
+  .contact-links-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-section {
+    padding: 60px 20px;
+  }
+  .communication-log-card {
+    padding: 35px 20px;
+  }
+  .contact-top h2 {
+    font-size: 38px;
+  }
+
+  .contact-links-strip {
+    grid-template-columns: 1fr;
+  }
+}

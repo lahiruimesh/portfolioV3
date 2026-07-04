@@ -2,11 +2,11 @@ import React, { useEffect, useRef, useState } from 'react'
 import './Navbar.css'
 
 const LINKS = [
-  { label: 'Story',    href: '#story'    },
-  { label: 'Titans',   href: '#titans'   },
-  { label: 'Soldiers', href: '#soldiers' },
-  { label: 'Walls',    href: '#walls'    },
-  { label: 'Chronicle',href: '#chronicle'},
+  { label: 'Home',      href: '#home'      },
+  { label: 'About',     href: '#about'     },
+  { label: 'Skills',    href: '#skills'    },
+  { label: 'Projects',  href: '#projects'  },
+  { label: 'Contact',   href: '#contact'   },
 ]
 
 const Navbar = () => {
@@ -44,13 +44,13 @@ const Navbar = () => {
 
         <div className="navbar__rule navbar__rule--left" />
 
-        <a href="#" className="navbar__logo" onClick={() => setMenuOpen(false)}>
-          <span className="navbar__logo-wings">⸸</span>
+        <a href="#home" className="navbar__logo" onClick={() => setMenuOpen(false)}>
+          <span className="navbar__logo-wings">✦</span>
           <span className="navbar__logo-text">
-            <span className="navbar__logo-main">ATTACK</span>
-            <span className="navbar__logo-sub">ON TITAN</span>
+            <span className="navbar__logo-main">LAHIRU</span>
+            <span className="navbar__logo-sub">AI / ML INTERN</span>
           </span>
-          <span className="navbar__logo-wings">⸸</span>
+          <span className="navbar__logo-wings">✦</span>
         </a>
 
         <ul className="navbar__links" onMouseLeave={hideIndicator}>
@@ -70,9 +70,9 @@ const Navbar = () => {
           <div className="navbar__indicator" ref={indicatorRef} />
         </ul>
 
-        <a href="#watch" className="navbar__cta">
+        <a href="#contact" className="navbar__cta">
           <span className="navbar__cta-inner">
-            <span>Watch Now</span>
+            <span>Get In Touch</span>
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
               <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
@@ -106,8 +106,8 @@ const Navbar = () => {
               {link.label}
             </a>
           ))}
-          <a href="#watch" className="navbar__drawer-cta" onClick={() => setMenuOpen(false)}>
-            Watch Now
+          <a href="#contact" className="navbar__drawer-cta" onClick={() => setMenuOpen(false)}>
+            Get In Touch
           </a>
         </div>
       </div>

@@ -1,77 +1,72 @@
 import React, { useEffect, useRef } from 'react'
-import './TitanSize.css'
+import './TitanSize.css' // Or CareerScale.css
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const TITANS = [
+const PORTFOLIO_METRICS = [
   {
-    id      : 'human',
-    name    : 'Human',
-    height  : '1.7 m',
+    id      : 'cadet',
+    name    : 'Academic Profile',
+    height  : 'Lv. 1',
     color   : '#c4a450',
-    desc    : 'Survey Corps soldier. The brave ones who dare to face the giants.',
-    imgH    : 5.8,   
-    imgW    : 5.9,   
+    desc    : 'B.Sc. (Hons) in Information Technology at the University of Moratuwa, GPA 3.39.',
+    imgH    : 10,   
+    imgW    : 10,   
     img     : '/images/Human.png',
+    meta    : '2022-Present'
   },
   {
-    id      : 'pure',
-    name    : 'Pure Titan',
-    height  : '4 – 15 m',
+    id      : 'experience',
+    name    : 'Industry Experience',
+    height  : 'Lv. 2',
     color   : '#b0a090',
-    desc    : 'Mindless and relentless. The most common threat beyond the walls.',
-    imgH    : 14,
-    imgW    : 10,
+    desc    : 'Intern Software Engineer at Simplibill, delivering scalable features and optimizing backend systems.',
+    imgH    : 18,
+    imgW    : 14,
     img     : '/images/PureTitan.png',
+    meta    : '7 Months'
   },
   {
-    id      : 'armored',
-    name    : 'Armored Titan',
-    height  : '15 m',
+    id      : 'contributions',
+    name    : 'Project Portfolio',
+    height  : 'Lv. 3',
     color   : '#8c8c8c',
-    desc    : 'Reiner Braun. Hardened plates make it nearly impenetrable.',
-    imgH    : 15.5,
-    imgW    : 9,
+    desc    : 'RAG, agentic AI, healthcare ML, brain MRI classification, and e-commerce systems across Python and web stacks.',
+    imgH    : 28,
+    imgW    : 16,
     img     : '/images/ArmoredTitan.png',
+    meta    : '5+ Projects'
   },
   {
-    id      : 'female',
-    name    : 'Female Titan',
-    height  : '14 m',
+    id      : 'credentials',
+    name    : 'Technical Stack',
+    height  : 'Lv. 4',
     color   : '#c49090',
-    desc    : 'Annie Leonhart. Agile, crystalline, and terrifyingly intelligent.',
-    imgH    : 23.5,
-    imgW    : 12.5,
+    desc    : 'Python, Scikit-learn, XGBoost, FastAPI, LangGraph, React, Next.js, NestJS, and Streamlit.',
+    imgH    : 38,
+    imgW    : 20,
     img     : '/images/FemaleTitan.png',
+    meta    : 'AI / ML + Full-Stack'
   },
   {
-    id      : 'beast',
-    name    : 'Beast Titan',
-    height  : '17 m',
-    color   : '#7a8c6a',
-    desc    : 'Zeke Yeager. Ape-like form with devastating projectile attacks.',
-    imgH    : 30.5,
-    imgW    : 18,
-    img     : '/images/BeastTitan.png',
-  },
-  {
-    id      : 'colossal',
-    name    : 'Colossal Titan',
-    height  : '60 m',
+    id      : 'networks',
+    name    : 'Global Links',
+    height  : 'Lv. Max',
     color   : '#c0522a',
-    desc    : 'Bertholdt Hoover. The one who broke the gate. Steam Incarnate.',
-    imgH    : 50,
-    imgW    : 28,
+    desc    : 'Direct links to GitHub, LinkedIn, email, and portfolio.',
+    imgH    : 55,
+    imgW    : 30,
     img     : '/images/col.png',
+    meta    : 'LinkedIn • GitHub • Mail'
   },
 ]
 
-export default function TitanSize() {
+export default function CareerScale() {
   const sectionRef = useRef(null)
   const stickyRef  = useRef(null)
-  const titanRefs  = useRef([])
+  const metricRefs = useRef([])
   const labelRefs  = useRef([])
   const lineRefs   = useRef([])
   const headerRef  = useRef(null)
@@ -82,7 +77,7 @@ export default function TitanSize() {
     const sticky  = stickyRef.current
     if (!section || !sticky) return
 
-    const scrollLen = window.innerHeight * (TITANS.length + 1.5)
+    const scrollLen = window.innerHeight * (PORTFOLIO_METRICS.length + 1.5)
     section.style.height = `${scrollLen + window.innerHeight}px`
 
     const tl = gsap.timeline({
@@ -101,8 +96,8 @@ export default function TitanSize() {
       { opacity: 1, y: 0, duration: 0.4 },
       0)
 
-    TITANS.forEach((_, i) => {
-      const el    = titanRefs.current[i]
+    PORTFOLIO_METRICS.forEach((_, i) => {
+      const el    = metricRefs.current[i]
       const label = labelRefs.current[i]
       const line  = lineRefs.current[i]
       if (!el) return
@@ -139,31 +134,31 @@ export default function TitanSize() {
         <div className="ts-header" ref={headerRef}>
           <span className="ts-header-rule" />
           <div>
-            <p className="ts-header-eyebrow">Scale of Terror</p>
-            <h2 className="ts-header-title">Titan Size Comparison</h2>
+            <p className="ts-header-eyebrow">Strategic Evaluation Dossier</p>
+            <h2 className="ts-header-title">CREATIVE ENGINEERING SCALE</h2>
           </div>
           <span className="ts-header-rule" />
         </div>
 
         <div className="ts-stage">
-          {TITANS.map((titan, i) => (
+          {PORTFOLIO_METRICS.map((metric, i) => (
             <div
-              key={titan.id}
+              key={metric.id}
               className="ts-titan-slot"
-              style={{ '--color': titan.color }}
+              style={{ '--color': metric.color }}
             >
               <div
                 className="ts-figure"
-                ref={el => titanRefs.current[i] = el}
+                ref={el => metricRefs.current[i] = el}
               >
                 <img
-                  src={titan.img}
-                  alt={titan.name}
+                  src={metric.img}
+                  alt={metric.name}
                   className="ts-figure-img"
                   draggable={false}
                   style={{
-                    height  : `${titan.imgH}vh`,
-                    width   : `${titan.imgW}vh`,
+                    height  : `${metric.imgH}vh`,
+                    width   : `${metric.imgW}vh`,
                   }}
                 />
               </div>
@@ -171,23 +166,35 @@ export default function TitanSize() {
               <div
                 className="ts-measure-line"
                 ref={el => lineRefs.current[i] = el}
-                style={{ height: `${titan.imgH}vh` }}
+                style={{ height: `${metric.imgH}vh` }}
               />
 
               <div
                 className="ts-label"
                 ref={el => labelRefs.current[i] = el}
               >
-                <span className="ts-label-height">{titan.height}</span>
-                <span className="ts-label-name">{titan.name}</span>
-                <span className="ts-label-desc">{titan.desc}</span>
+                <span className="ts-label-height">{metric.height}</span>
+                <span className="ts-label-name">{metric.name}</span>
+                <span className="ts-label-desc">{metric.desc}</span>
+                
+                {/* Custom dynamic interactive links injection block */}
+                {metric.id === 'networks' ? (
+                  <div className="ts-social-links-row">
+                    <a href="https://github.com/lahiruimesh" target="_blank" rel="noreferrer">GitHub</a>
+                    <a href="https://www.linkedin.com/in/lahiru-imesh-67350025a/" target="_blank" rel="noreferrer">LinkedIn</a>
+                    <a href="mailto:lahiruimesh111@gmail.com">Email</a>
+                  </div>
+                ) : (
+                  <span className="ts-label-meta">{metric.meta}</span>
+                )}
               </div>
             </div>
           ))}
         </div>
 
+        {/* Repurposed Wall Boundary Metric */}
         <div className="ts-wall-line">
-          <span className="ts-wall-label">Wall Maria · 50 m</span>
+          <span className="ts-wall-label">Industry Baseline · 2026 Target Standard</span>
         </div>
 
         <div className="ts-grain" />

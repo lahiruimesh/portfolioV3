@@ -1,0 +1,120 @@
+.radar-section {
+  width: 100%;
+  min-height: 100vh;
+  background: #0b0b0b;
+  color: #e7dcc7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 120px 20px;
+}
+
+/* HEADER */
+
+.radar-title {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.radar-title span {
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  color: #8f1d1d;
+}
+
+.radar-title h2 {
+  font-family: "Cinzel", serif;
+  font-size: 38px;
+  color: #d8c9a3;
+  letter-spacing: 0.2em;
+  margin-top: 10px;
+}
+
+.radar-title p {
+  opacity: 0.7;
+  font-size: 14px;
+}
+
+/* RADAR */
+
+.radar-container {
+  position: relative;
+  width: 420px;
+  height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* circles */
+
+.circle {
+  position: absolute;
+  border: 1px solid rgba(216, 201, 163, 0.15);
+  border-radius: 50%;
+}
+
+.c1 {
+  width: 120px;
+  height: 120px;
+}
+
+.c2 {
+  width: 240px;
+  height: 240px;
+}
+
+.c3 {
+  width: 360px;
+  height: 360px;
+}
+
+/* scan line */
+
+.scan {
+  position: absolute;
+  width: 50%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #8f1d1d, transparent);
+  top: 50%;
+  left: 50%;
+  transform-origin: left center;
+  z-index: 2;
+  opacity: 0.8;
+}
+
+/* center */
+
+.center-node {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(143, 29, 29, 0.2);
+  border: 1px solid #8f1d1d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  letter-spacing: 0.2em;
+  font-family: "Cinzel", serif;
+}
+
+/* skill nodes */
+
+.skill-node {
+  position: absolute;
+  font-size: 12px;
+  padding: 6px 10px;
+  border: 1px solid rgba(216, 201, 163, 0.3);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.5);
+  transform-origin: center;
+  transition: 0.3s ease;
+}
+
+.skill-node:hover {
+  border-color: #8f1d1d;
+  transform: scale(1.2);
+  color: #d8c9a3;
+}
