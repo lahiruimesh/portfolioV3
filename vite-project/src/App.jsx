@@ -16,7 +16,6 @@ function App() {
       <Hero />
       <About />
       <Skills />
-      <SkillsRadar />
       <Projects />
       <Education />
       <CareerScale />

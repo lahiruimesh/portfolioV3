@@ -207,7 +207,6 @@ const Projects = () => {
 
               {/* Column 02: Tactical Blueprint Artwork Document Segment */}
               <div className="proj-art-col">
-                {/* Dynamically fallback gracefully to styled generic canvas blueprint items if art files are missing */}
                 <img src={project.art} alt="" onError={(e) => {
                   e.target.style.display = 'none';
                 }}/>

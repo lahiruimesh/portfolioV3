@@ -161,7 +161,7 @@ const Hero = () => {
           </div>
           <h1 className="hero__ch1-title" ref={ch1TitleRef}>
             Lahiru <em>Imesh</em><br />
-            <span>AI / ML Intern</span>
+            <span className='hero__ch1-title__sub'>AI & ML Enthusiast</span>
           </h1>
           <p className="hero__ch1-sub" ref={ch1SubRef}>
             Aspiring AI/ML Engineer focused on machine learning, data preprocessing, feature engineering, model development, and AI deployment.
@@ -169,8 +169,13 @@ const Hero = () => {
         </div>
 
         <div className="hero__chapter hero__ch2">
-          <p className="hero__ch2-title" ref={ch2TitleRef}>PYTHON • FASTAPI • XGBOOST</p>
-          <p className="hero__ch2-sub" ref={ch2SubRef}>— Full-stack AI systems, data-driven products, and practical problem solving —</p>
+          <p className="hero__ch2-title" ref={ch2TitleRef}>MACHINE LEARNING • AI SOLUTIONS</p>
+          <p className="hero__ch2-sub" ref={ch2SubRef}>— Passionate about transforming data into intelligent solutions. Building
+    machine learning models that solve<br /> real-world challenges. Developing
+    scalable backend systems and AI-powered applications.<br /> Continuously
+    exploring modern AI technologies to improve performance and user
+    experience. Always learning,<br /> experimenting, and creating impactful
+    software. —</p>
         </div>
 
         <div className="hero__chapter hero__ch3">

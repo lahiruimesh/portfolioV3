@@ -153,6 +153,11 @@
 		@apply fixed inset-0 z-[999] flex items-center justify-center bg-[rgba(6,6,10,0.97)] opacity-0 pointer-events-none transition-opacity duration-400;
 	}
 
+	.navbar--open .navbar__drawer,
+	.navbar__drawer--open {
+		@apply opacity-100 pointer-events-auto;
+	}
+
 	.navbar__drawer-inner {
 		@apply flex w-full flex-col items-center gap-2 p-8;
 	}
@@ -165,6 +170,34 @@
 
 	.navbar__drawer-link {
 		@apply w-full gap-3 border-b border-white/5 py-2.5 font-bold text-[clamp(1.3rem,5vw,2rem)] tracking-[0.15em] text-dust opacity-0 translate-y-5 transition-[color,letter-spacing] duration-300;
+	}
+
+	.navbar--open .navbar__drawer-link,
+	.navbar__drawer--open .navbar__drawer-link,
+	.navbar--open .navbar__drawer-cta,
+	.navbar__drawer--open .navbar__drawer-cta,
+	.navbar--open .navbar__drawer-download,
+	.navbar__drawer--open .navbar__drawer-download {
+		@apply opacity-100 translate-y-0;
+	}
+
+	.navbar__drawer-link {
+		transition-delay: calc(var(--i, 0) * 70ms);
+	}
+
+	.navbar__drawer-cta,
+	.navbar__drawer-download {
+		transition: opacity 300ms ease, transform 300ms ease, color 300ms ease, border-color 300ms ease;
+	}
+
+	.navbar--open .navbar__drawer-cta,
+	.navbar__drawer--open .navbar__drawer-cta {
+		transition-delay: 360ms;
+	}
+
+	.navbar--open .navbar__drawer-download,
+	.navbar__drawer--open .navbar__drawer-download {
+		transition-delay: 440ms;
 	}
 
 	.navbar__drawer-cta,
@@ -207,11 +240,11 @@
 		@apply absolute inset-0 z-10 flex flex-col pointer-events-none will-change-[transform,opacity,filter];
 	}
 
-	.hero__ch1 { @apply justify-end px-[8vw] pb-[12vh] max-sm:px-[6vw]; }
+	.hero__ch1 { @apply justify-center px-[8vw] pb-[12vh] max-sm:px-[6vw]; }
 	.hero__ch3 { @apply justify-center pl-[8vw] max-sm:px-[6vw] max-sm:items-center max-sm:pl-0; }
 	.hero__ch2 { @apply justify-center items-center text-center max-sm:px-6; }
 
-	.hero__eyebrow { @apply mb-6 flex items-center gap-3 opacity-65; }
+	.hero__eyebrow { @apply mb-8 flex items-center gap-3 opacity-65; }
 	.hero__rule { @apply basis-[36px] h-px bg-gold; }
 	.hero__eyebrow-txt { @apply font-cinzel text-[clamp(0.5rem,0.85vw,0.72rem)] tracking-[0.28em] uppercase text-gold; }
 
@@ -220,9 +253,13 @@
 		text-shadow: 0 0 80px rgba(184,32,32,.5), 0 4px 30px rgba(0,0,0,.8);
 	}
 
+	.hero__ch1-title__sub {
+		@apply text-red text-[clamp(2.8rem,8vw,7rem)];
+	}
+
 	.hero__ch1-sub { @apply mt-5 max-w-[48ch] font-body italic text-[clamp(0.85rem,1.3vw,1.15rem)] leading-[1.7] text-dust opacity-0; }
 	.hero__ch2-title { @apply font-cinzel font-bold text-[clamp(1.2rem,3.5vw,4rem)] tracking-[0.2em] uppercase text-bone opacity-0; text-shadow: 0 0 100px rgba(184,32,32,.35); }
-	.hero__ch2-sub { @apply mt-4 font-body italic text-[clamp(0.8rem,1.2vw,1.05rem)] tracking-[0.1em] text-red opacity-0; }
+	.hero__ch2-sub { @apply mt-4 font-body italic text-[clamp(1.0rem,1.5vw,2.05rem)] tracking-[0.1em] text-red opacity-0; }
 	.hero__ch3-title { @apply font-display font-black text-[clamp(4rem,13vw,15rem)] leading-[0.88] text-white opacity-0; text-shadow: 0 0 160px rgba(196,164,80,.3), 0 8px 60px rgba(0,0,0,.9); }
 	.hero__ch3-title span { @apply block text-transparent text-[0.7em]; -webkit-text-stroke: 2px var(--white); }
 	.hero__ch3-sub { @apply mt-8 border-l-2 border-red pl-[1.2rem] font-body italic text-[clamp(0.85rem,1.4vw,1.25rem)] tracking-[0.08em] text-gold opacity-0; }
@@ -237,6 +274,27 @@
 	.contact-section,
 	.projects-section {
 		@apply relative w-full min-h-screen overflow-hidden bg-void text-white px-5 md:px-10 py-20 md:py-[120px];
+	}
+
+	.skills-section {
+		background: linear-gradient(to bottom, rgba(11,11,11,0.82) 0%, rgba(14,10,10,0.9) 45%, rgba(11,11,11,0.96) 100%), url('/images/hero-wall.png');
+		background-size: cover;
+		background-position: center;
+		background-attachment: fixed;
+	}
+
+	.projects-section {
+		background: linear-gradient(to bottom, rgba(8,8,10,0.8) 0%, rgba(15,12,20,0.92) 50%, rgba(8,8,10,0.96) 100%), url('/images/blueprint.jpg');
+		background-size: cover;
+		background-position: center;
+		background-attachment: fixed;
+	}
+
+	.education-section {
+		background: linear-gradient(to bottom, rgba(11,11,11,0.8) 0%, rgba(12,12,14,0.92) 50%, rgba(11,11,11,0.96) 100%), url('/images/shiganshina-wall.png');
+		background-size: cover;
+		background-position: center;
+		background-attachment: fixed;
 	}
 
 	.about::after { content: ''; @apply absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_40%,rgba(0,0,0,0.7)_100%)]; }
@@ -484,8 +542,58 @@
 	}
 
 	@media (max-width: 768px) {
+		.navbar {
+			@apply h-16 px-4 gap-4;
+		}
+
+		.navbar__rule {
+			display: none;
+		}
+
+		.navbar__logo-sub {
+			display: none;
+		}
+
+		.navbar__logo-main {
+			@apply text-[0.9rem];
+		}
+
 		.navbar__links { @apply hidden; }
 		.navbar__burger { @apply flex; }
+		.navbar__drawer-inner { @apply px-5; }
+		.navbar__drawer-link { @apply text-center; }
+
+		.navbar__cta,
+		.navbar__download {
+			display: none;
+		}
+
+		.contact-section {
+			@apply px-4 py-16;
+		}
+
+		.titan-faction-left,
+		.survey-corps-right {
+			display: none;
+		}
+
+		.form-wrapper {
+			@apply max-w-full;
+		}
+
+		.communication-log-card {
+			@apply px-4 py-6;
+			clip-path: none;
+			border-radius: 16px;
+		}
+
+		.contact-top h2 {
+			@apply text-[clamp(2.2rem,10vw,3rem)];
+		}
+
+		.contact-links-strip {
+			@apply grid-cols-1;
+		}
 	}
 
 	@media (max-width: 640px) {
@@ -501,11 +609,70 @@
 		.expedition-node { @apply grid-cols-1; }
 		.profile-panel,
 		.record-panel { @apply w-full; }
+
+		.skills-section,
+		.projects-section,
+		.education-section {
+			background-attachment: scroll;
+		}
+
+		.cat-image-panel {
+			@apply h-[220px] w-full;
+		}
+
+		.contact-footer-signs .kanji-motto {
+			@apply text-[16px] tracking-[0.22em];
+		}
+
+		.ts-stage {
+			@apply flex-col items-center gap-4 px-4 bottom-[8vh];
+		}
+
+		.ts-titan-slot {
+			@apply w-full items-center;
+		}
+
+		.ts-figure-img {
+			width: min(48vw, 18vh) !important;
+			height: auto !important;
+		}
+
+		.ts-label {
+			@apply max-w-none;
+		}
+
+		.ts-header {
+			@apply top-8 gap-3;
+		}
+
+		.ts-header-rule {
+			@apply basis-[24px];
+		}
+
+		.ts-wall-line {
+			display: none;
+		}
+
+		.ts-header-title {
+			@apply text-[clamp(1rem,6vw,1.8rem)];
+		}
 	}
 
 	@media (max-width: 480px) {
 		.navbar__cta,
 		.navbar__download { @apply hidden; }
+
+		.skills-header h2,
+		.edu-top h2,
+		.projects-top h2,
+		.contact-top h2,
+		.radar-title h2 {
+			@apply text-[clamp(1.7rem,10vw,2.6rem)];
+		}
+
+		.contact-links-strip a strong {
+			@apply text-[12px];
+		}
 	}
 }
 

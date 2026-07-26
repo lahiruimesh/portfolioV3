@@ -15,6 +15,7 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    affiliation: "",
     message: "",
   });
   const [submitState, setSubmitState] = useState("idle");
@@ -124,7 +125,7 @@ const Contact = () => {
       }
 
       setSubmitState("success");
-      setFormData({ name: "", email: "", message: "" });
+      setFormData({ name: "", email: "", affiliation: "", message: "" });
     } catch (error) {
       setSubmitState("error");
     }
@@ -214,6 +215,8 @@ const Contact = () => {
                 type="text" 
                 id="coder-affiliation" 
                 placeholder="Faculty of Information Technology, University of Moratuwa" 
+                value={formData.affiliation}
+                onChange={(event) => setFormData((current) => ({ ...current, affiliation: event.target.value }))}
               />
             </div>
 

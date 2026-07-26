@@ -1,69 +1,110 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLayoutEffect } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
+
+const fallbackSkillCategories = [
+  {
+    title: "Programming Languages",
+    description: "Core languages used across AI, automation, and product development.",
+    image: "/images/PL.png",
+    skills: [
+      { name: "Java", level: "Strong", style: { width: "92%" } },
+      { name: "Python", level: "95%", style: { width: "95%" } },
+      { name: "JavaScript", level: "88%", style: { width: "88%" } },
+    ],
+  },
+  {
+    title: "Machine Learning & AI",
+    description: "Model development, preprocessing, evaluation, and agentic workflows.",
+    image: "/images/ArmoredTitan.png",
+    reverse: true,
+    skills: [
+      { name: "TensorFlow / Keras", level: "90%", style: { width: "90%" } },
+      { name: "Scikit-Learn / XGBoost", level: "92%", style: { width: "92%" } },
+      { name: "LangChain / LangGraph / n8n", level: "87%", style: { width: "87%" } },
+    ],
+  },
+  {
+    title: "Web & Full-Stack",
+    description: "Frontend and backend application development for scalable products.",
+    image: "/images/PureTitan.png",
+    skills: [
+      { name: "ReactJS / NextJS", level: "88%", style: { width: "88%" } },
+      { name: "FastAPI / NestJS", level: "90%", style: { width: "90%" } },
+      { name: "Streamlit", level: "84%", style: { width: "84%" } },
+    ],
+  },
+  {
+    title: "Data Science & Analytics",
+    description: "Analysis, visualization, and data preparation for decision making.",
+    image: "/images/BeastTitan.png",
+    reverse: true,
+    skills: [
+      { name: "Pandas / NumPy", level: "92%", style: { width: "92%" } },
+      { name: "Matplotlib / Seaborn", level: "86%", style: { width: "86%" } },
+      { name: "Feature Engineering", level: "90%", style: { width: "90%" } },
+    ],
+  },
+  {
+    title: "Databases & Tools",
+    description: "Storage, collaboration, and delivery tools used in daily development.",
+    image: "/images/col.png",
+    skills: [
+      { name: "MySQL / PostgreSQL / MongoDB", level: "88%", style: { width: "88%" } },
+      { name: "Git / GitHub", level: "95%", style: { width: "95%" } },
+      { name: "Adobe / Canva / VS Code", level: "86%", style: { width: "86%" } },
+    ],
+  },
+];
+
 const Skills = () => {
   const sectionRef = useRef(null);
   const categoryRefs = useRef([]);
+  const [skillCategories, setSkillCategories] = useState(fallbackSkillCategories);
 
-  // Data categorization structure
-  const skillCategories = [
-    {
-      title: "Programming Languages",
-      description: "Core languages used across AI, automation, and product development.",
-      image: "/images/Human.png",
-      skills: [
-        { name: "Java", level: "Strong", style: { width: "92%" } },
-        { name: "Python", level: "95%", style: { width: "95%" } },
-        { name: "JavaScript", level: "88%", style: { width: "88%" } },
-      ],
-    },
-    {
-      title: "Machine Learning & AI",
-      description: "Model development, preprocessing, evaluation, and agentic workflows.",
-      image: "/images/ArmoredTitan.png",
-      reverse: true,
-      skills: [
-        { name: "TensorFlow / Keras", level: "90%", style: { width: "90%" } },
-        { name: "Scikit-Learn / XGBoost", level: "92%", style: { width: "92%" } },
-        { name: "LangChain / LangGraph / n8n", level: "87%", style: { width: "87%" } },
-      ],
-    },
-    {
-      title: "Web & Full-Stack",
-      description: "Frontend and backend application development for scalable products.",
-      image: "/images/PureTitan.png",
-      skills: [
-        { name: "ReactJS / NextJS", level: "88%", style: { width: "88%" } },
-        { name: "FastAPI / NestJS", level: "90%", style: { width: "90%" } },
-        { name: "Streamlit", level: "84%", style: { width: "84%" } },
-      ],
-    },
-    {
-      title: "Data Science & Analytics",
-      description: "Analysis, visualization, and data preparation for decision making.",
-      image: "/images/BeastTitan.png",
-      reverse: true,
-      skills: [
-        { name: "Pandas / NumPy", level: "92%", style: { width: "92%" } },
-        { name: "Matplotlib / Seaborn", level: "86%", style: { width: "86%" } },
-        { name: "Feature Engineering", level: "90%", style: { width: "90%" } },
-      ],
-    },
-    {
-      title: "Databases & Tools",
-      description: "Storage, collaboration, and delivery tools used in daily development.",
-      image: "/images/col.png",
-      skills: [
-        { name: "MySQL / PostgreSQL / MongoDB", level: "88%", style: { width: "88%" } },
-        { name: "Git / GitHub", level: "95%", style: { width: "95%" } },
-        { name: "Adobe / Canva / VS Code", level: "86%", style: { width: "86%" } },
-      ],
-    },
-  ];
+  useEffect(() => {
+    const controller = new AbortController();
+
+    const fetchSkills = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/skills`, {
+          signal: controller.signal,
+        });
+
+        if (!response.ok) {
+          throw new Error(`Request failed with status ${response.status}`);
+        }
+
+        const data = await response.json();
+        if (Array.isArray(data) && data.length > 0) {
+          setSkillCategories(
+            data.map((category) => ({
+              ...category,
+              skills: Array.isArray(category.skills)
+                ? category.skills.map((skill) => ({
+                    ...skill,
+                    style: { width: skill.style ?? skill.level ?? "0%" },
+                  }))
+                : [],
+            }))
+          );
+        }
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          setSkillCategories(fallbackSkillCategories);
+        }
+      }
+    };
+
+    fetchSkills();
+
+    return () => controller.abort();
+  }, []);
 
   useLayoutEffect(() => {
     const categories = categoryRefs.current.filter(Boolean);

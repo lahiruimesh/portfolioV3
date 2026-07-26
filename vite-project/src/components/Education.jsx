@@ -1,39 +1,71 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
+
+const fallbackEducationData = [
+  {
+    stage: "Current Degree",
+    degree: "B.Sc. (Hons) in Information Technology",
+    institution: "Faculty of Information Technology, University of Moratuwa",
+    duration: "2022 — Present",
+    status: "In Progress",
+    gpa: "3.39 / 4.00",
+    description: "Undergraduate study focused on information technology, software engineering, and applied AI/ML development.",
+    modules: ["AI / ML", "Web Development", "Databases", "Software Engineering"],
+    current: true,
+  },
+  {
+    stage: "Secondary Education",
+    degree: "GCE Advanced Level",
+    institution: "Bandarawela Central College",
+    duration: "2018 — 2020",
+    status: "Science Stream",
+    gpa: "Z-score 1.6220",
+    description: "Completed the science stream and built a strong foundation in analytical problem solving.",
+    modules: ["Physics", "Chemistry", "Combined Mathematics"],
+    current: false,
+  },
+];
 
 const Education = () => {
   const sectionRef = useRef(null);
   const headerRef = useRef(null);
   const lineRef = useRef(null);
   const nodesRef = useRef([]);
+  const [educationData, setEducationData] = useState(fallbackEducationData);
 
-  const educationData = [
-    {
-      stage: "Current Degree",
-      degree: "B.Sc. (Hons) in Information Technology",
-      institution: "Faculty of Information Technology, University of Moratuwa",
-      duration: "2022 — Present",
-      status: "In Progress",
-      gpa: "3.39 / 4.00",
-      description: "Undergraduate study focused on information technology, software engineering, and applied AI/ML development.",
-      modules: ["AI / ML", "Web Development", "Databases", "Software Engineering"],
-      current: true
-    },
-    {
-      stage: "Secondary Education",
-      degree: "GCE Advanced Level",
-      institution: "Bandarawela Central College",
-      duration: "2018 — 2020",
-      status: "Science Stream",
-      gpa: "Z-score 1.6220",
-      description: "Completed the science stream and built a strong foundation in analytical problem solving.",
-      modules: ["Physics", "Chemistry", "Combined Mathematics"],
-      current: false
-    }
-  ];
+  useEffect(() => {
+    const controller = new AbortController();
+
+    const fetchEducation = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/education`, {
+          signal: controller.signal,
+        });
+
+        if (!response.ok) {
+          throw new Error(`Request failed with status ${response.status}`);
+        }
+
+        const data = await response.json();
+        if (Array.isArray(data) && data.length > 0) {
+          setEducationData(data);
+        }
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          setEducationData(fallbackEducationData);
+        }
+      }
+    };
+
+    fetchEducation();
+
+    return () => controller.abort();
+  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {

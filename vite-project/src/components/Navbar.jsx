@@ -8,7 +8,7 @@ const LINKS = [
   { label: 'Contact',   href: '#contact'   },
 ]
 
-const CV_DOWNLOAD_PATH = '/cv.pdf'
+const CV_DOWNLOAD_PATH = './images/AIML Intern - Lahiru Imesh (NEW).pdf'//E:\AOTPortfolio\attack-on-titans\vite-project\public\images\AIML Intern - Lahiru Imesh (NEW).pdf
 
 const Navbar = () => {
   const [scrolled,    setScrolled]    = useState(false)
@@ -49,7 +49,7 @@ const Navbar = () => {
           <span className="navbar__logo-wings">✦</span>
           <span className="navbar__logo-text">
             <span className="navbar__logo-main">LAHIRU</span>
-            <span className="navbar__logo-sub">AI / ML INTERN</span>
+            <span className="navbar__logo-sub">AI & ML Enthusiast</span>
           </span>
           <span className="navbar__logo-wings">✦</span>
         </a>
