@@ -73,53 +73,121 @@ export default function CareerScale() {
 
   useEffect(() => {
     const section = sectionRef.current
-    const sticky  = stickyRef.current
+    const sticky = stickyRef.current
     if (!section || !sticky) return
 
-    const scrollLen = window.innerHeight * (PORTFOLIO_METRICS.length + 1.5)
-    section.style.height = `${scrollLen + window.innerHeight}px`
+    const cleanupAnimations = () => {
+      ScrollTrigger.getAll().forEach((trigger) => {
+        const matches =
+          trigger &&
+          ((trigger.trigger === section) ||
+            (trigger.pin === sticky) ||
+            (trigger.vars && (
+              trigger.vars.trigger === section ||
+              trigger.vars.pin === sticky
+            )))
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger   : section,
-        start     : 'top top',
-        end       : `+=${scrollLen}`,
-        scrub     : 1.2,
-        pin       : sticky,
-        pinSpacing: false,
-      },
+        if (matches) trigger.kill()
+      })
+    }
+
+    cleanupAnimations()
+
+    const isMobile = window.matchMedia('(max-width: 640px)').matches
+
+    if (isMobile) {
+      section.style.height = 'auto'
+      section.style.minHeight = 'auto'
+      sticky.style.position = 'relative'
+      sticky.style.height = 'auto'
+      sticky.style.width = '100%'
+      sticky.style.overflow = 'visible'
+      gsap.set(
+        [headerRef.current, fogRef.current, ...metricRefs.current, ...labelRefs.current, ...lineRefs.current],
+        { clearProps: 'all', opacity: 1, x: 0, y: 0 }
+      )
+      return () => cleanupAnimations()
+    }
+
+    section.style.height = 'auto'
+    section.style.minHeight = 'auto'
+    sticky.style.position = 'relative'
+    sticky.style.height = 'auto'
+    sticky.style.width = '100%'
+    sticky.style.overflow = 'visible'
+
+    gsap.set(sticky, { clearProps: 'all' })
+    gsap.set([headerRef.current, ...metricRefs.current, ...labelRefs.current, ...lineRefs.current], {
+      clearProps: 'all',
+      opacity: 1,
+      y: 0,
+      x: 0,
+      filter: 'blur(0px)',
     })
 
-    tl.fromTo(headerRef.current,
+    gsap.fromTo(
+      headerRef.current,
       { opacity: 0, y: -30 },
-      { opacity: 1, y: 0, duration: 0.4 },
-      0)
+      { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', scrollTrigger: { trigger: section, start: 'top 75%', once: true } }
+    )
 
     PORTFOLIO_METRICS.forEach((_, i) => {
-      const el    = metricRefs.current[i]
+      const el = metricRefs.current[i]
       const label = labelRefs.current[i]
-      const line  = lineRefs.current[i]
+      const line = lineRefs.current[i]
       if (!el) return
 
-      const start = 0.12 + i * 0.15
+      gsap.fromTo(
+        el,
+        { yPercent: 95, opacity: 0, filter: 'blur(4px)' },
+        {
+          yPercent: 0,
+          opacity: 1,
+          filter: 'blur(0px)',
+          duration: 0.75,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 85%',
+            once: true,
+          },
+        }
+      )
 
-      tl.fromTo(el,
-        { yPercent: 110, opacity: 0, filter: 'blur(4px)' },
-        { yPercent: 0,   opacity: 1, filter: 'blur(0px)', duration: 0.18, ease: 'power3.out' },
-        start)
-
-      tl.fromTo([label, line],
-        { opacity: 0, y: 10 },
-        { opacity: 1, y: 0, duration: 0.1 },
-        start + 0.14)
+      gsap.fromTo(
+        [label, line],
+        { opacity: 0, y: 16 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: label,
+            start: 'top 90%',
+            once: true,
+          },
+        }
+      )
     })
 
-    tl.fromTo(fogRef.current,
+    gsap.fromTo(
+      fogRef.current,
       { opacity: 0.9 },
-      { opacity: 0.15, duration: 1 },
-      0)
+      {
+        opacity: 0.15,
+        duration: 1.2,
+        ease: 'sine.out',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 30%',
+          end: 'bottom 60%',
+          scrub: true,
+        },
+      }
+    )
 
-    return () => ScrollTrigger.getAll().forEach(t => t.kill())
+    return () => cleanupAnimations()
   }, [])
 
   return (

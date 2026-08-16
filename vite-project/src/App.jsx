@@ -3,7 +3,7 @@ import Navbar from './components/Navbar'
 import CareerScale from './components/CareerScale'
 import About from './components/About'
 import Skills from './components/Skills'
-import SkillsRadar from './components/SkillsRadar'
+//import SkillsRadar from './components/SkillsRadar'<CareerScale />
 import Projects from './components/Projects'
 import Education from './components/Education'
 import Contact from './components/Contact'
@@ -18,7 +18,7 @@ function App() {
       <Skills />
       <Projects />
       <Education />
-      <CareerScale />
+      
       <Contact />
     </>
   )

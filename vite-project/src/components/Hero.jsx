@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 
+const CLOUDINARY_VIDEO_URL = 'https://res.cloudinary.com/tlodnzxk/video/upload/v1786865271/one.mp4'
+
 const Hero = () => {
   const sectionRef = useRef(null)
   const stickyRef = useRef(null)
@@ -138,16 +140,17 @@ const Hero = () => {
   return (
     <section className="hero" ref={sectionRef} id="home">
       <div className="hero__sticky" ref={stickyRef}>
-        <video
-          ref={videoRef}
-          className="hero__video"
-          src="/video/one.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-        />
+      <video
+        ref={videoRef}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        className="hero__video"
+      >
+        <source src={CLOUDINARY_VIDEO_URL} type="video/mp4" />
+      </video>
 
         <div className="hero__overlay" ref={overlayRef} />
 
