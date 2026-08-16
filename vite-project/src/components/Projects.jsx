@@ -246,7 +246,7 @@ const Projects = () => {
           ))}
         </div>
 
-        {/* Footer Subtitle Frame Accent Marker */}
+        {/* Footer Subtitle Frame Accent Marker --- */}
         <div className="projects-footer-motto">
           <p>Every project is a step closer to humanity's freedom.</p>
         </div>
