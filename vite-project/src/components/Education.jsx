@@ -137,7 +137,7 @@ const Education = () => {
         {/* Section Top Header */}
         <div className="edu-top" ref={headerRef}>
           <span className="archive-badge">Regiment Intel Log</span>
-          <h2>CAMPAIGN HISTORY</h2>
+          <h2>CAMPAIGN HISTORY ---</h2>
         </div>
 
         {/* Tactical Map Container */}
