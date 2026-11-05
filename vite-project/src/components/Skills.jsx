@@ -6,33 +6,131 @@ gsap.registerPlugin(ScrollTrigger);
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
 
+
 const fallbackSkillCategories = [
   {
+    title: "Programming Languages",
+    description:
+      "Programming foundations for building software applications, backend services, and intelligent systems.",
+    skills: [
+      "Python",
+      "JavaScript",
+      "TypeScript",
+      "Java",
+      "C",
+    ],
+  },
+  {
     title: "AI & Machine Learning",
-    description: "Core AI systems, predictive modeling, and computer vision implementations.",
-    skills: ["Python", "PyTorch", "TensorFlow", "OpenCV", "Scikit-learn", "XGBoost"],
+    description:
+      "Machine learning, deep learning, predictive modeling, and computer vision implementations.",
+    skills: [
+      "PyTorch",
+      "TensorFlow",
+      "Keras",
+      "OpenCV",
+      "Scikit-learn",
+      "XGBoost",
+      "Optuna",
+    ],
   },
   {
-    title: "Generative AI & RAG",
-    description: "Large language models, retrieval systems, and agentic workflows for intelligent apps.",
-    skills: ["LangChain", "LangGraph", "LLM", "RAG", "ChromaDB", "Hugging Face"],
+    title: "Generative AI & Agentic Systems",
+    description:
+      "LLM-powered applications, retrieval-augmented generation, and intelligent AI agent workflows.",
+    skills: [
+      "LangChain",
+      "LangGraph",
+      "RAG",
+      "LLMs",
+      "ChromaDB",
+      "Hugging Face",
+      "Gemini API",
+      "LLaMA",
+      "Ollama",
+      "Groq",
+    ],
   },
   {
-    title: "Data & Analytics",
-    description: "Data wrangling, statistical reasoning, and data storytelling for decision-making.",
-    skills: ["Pandas", "NumPy", "Matplotlib", "Seaborn", "SQL", "Power BI"],
+    title: "Frontend Development",
+    description:
+      "Building responsive, interactive, and user-friendly web interfaces using modern frontend technologies.",
+    skills: [
+      "React.js",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+    ],
   },
   {
-    title: "Web & Backend Development",
-    description: "Responsive interfaces and reliable backend systems built for modern product delivery.",
-    skills: ["React", "Next.js", "FastAPI", "Node.js", "REST APIs", "MongoDB"],
+    title: "Backend & API Development",
+    description:
+      "Developing backend services, RESTful APIs, authentication systems, and application integrations.",
+    skills: [
+      "Node.js",
+      "Express.js",
+      "NestJS",
+      "FastAPI",
+      "Laravel",
+      "REST APIs",
+    ],
   },
   {
-    title: "DevOps & Workflow Automation",
-    description: "Deployment pipelines, integrations, and automation tools that keep products moving.",
-    skills: ["Docker", "Git", "GitHub Actions", "n8n", "CI/CD", "PostgreSQL"],
+    title: "Databases & Data Analytics",
+    description:
+      "Database management, data processing, statistical analysis, and data visualization.",
+    skills: [
+      "PostgreSQL",
+      "MySQL",
+      "MongoDB",
+      "SQL",
+      "Pandas",
+      "NumPy",
+      "Matplotlib",
+      "Seaborn",
+      "Power BI",
+    ],
+  },
+  {
+    title: "Web Scraping & Workflow Automation",
+    description:
+      "Automating browser interactions, extracting web data, and building intelligent workflows and integrations.",
+    skills: [
+      "Playwright",
+      "BeautifulSoup",
+      "n8n",
+      "Make.com",
+      "Zapier",
+      "Webhooks",
+    ],
+  },
+  {
+    title: "DevOps, Version Control & Deployment",
+    description:
+      "Managing source code, automating development workflows, and deploying applications.",
+    skills: [
+      "Git",
+      "GitHub",
+      "Docker",
+      "GitHub Actions",
+      "Cloudflare",
+      "Railway",
+      "CI/CD",
+    ],
+  },
+  {
+    title: "UI/UX & Design Tools",
+    description:
+      "Creating user interfaces, designing digital experiences, and preparing visual assets.",
+    skills: [
+      "Figma",
+      "Adobe Photoshop",
+      "Adobe Illustrator",
+      "Canva",
+    ],
   },
 ];
+
 
 const Skills = () => {
   const sectionRef = useRef(null);
